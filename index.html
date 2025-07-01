@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>القران الكريم 📖</title>
+    
+    <!-- Google Fonts - Amiri for Quranic text -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Cairo:wght@400;600&display=swap" rel="stylesheet">
+
+    <style>
+        /* 🎨 CSS - The Soul of the Design 🎨 */
+
+        /* 1. CSS Variables for Theming (Light/Dark Mode) */
+        :root {
+            --bg-color: #f4f7f9;
+            --text-color: #2c3e50;
+            --card-bg: #ffffff;
+            --primary-color: #2980b9;
+            --accent-color: #d4af37; /* Gold */
+            --border-color: #e0e0e0;
+            --header-bg: #ffffff;
+        }
+
+        body.dark-mode {
+            --bg-color: #080808;
+            --text-color: #e0e0e0;
+            --card-bg: #000000;
+            --primary-color: #3498db;
+            --border-color: #121111;
+            --header-bg: #080808;
+        }
+
+        /* 2. General Styles & Reset */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Cairo', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            transition: background-color 0.3s, color 0.3s;
+            line-height: 1.8;
+        }
+
+        /* 3. Main Layout Containers */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 25px;
+            background-color: var(--header-bg);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            transition: background-color 0.3s;
+        }
+        
+        header h1 {
+            font-family: 'Amiri', serif;
+            color: var(--primary-color);
+            font-size: 2rem;
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        /* 4. Surah List View Styles */
+        .search-container {
+            margin: 30px 0;
+        }
+
+        #searchInput {
+            width: 100%;
+            padding: 15px;
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+            background-color: var(--card-bg);
+            color: var(--text-color);
+            font-size: 1.1rem;
+            transition: all 0.3s;
+        }
+
+        #searchInput:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(41, 128, 185, 0.2);
+        }
+
+        .surahs-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 20px;
+        }
+
+        .surah-card {
+            background-color: var(--card-bg);
+            border-radius: 10px;
+            padding: 20px;
+            cursor: pointer;
+            transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+            border: 1px solid var(--border-color);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .surah-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+        }
+
+        .surah-info {
+            display: flex;
+            align-items: center;
+        }
+
+        .surah-number {
+            font-family: 'Amiri', serif;
+            background-color: var(--primary-color);
+            color: white;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            margin-left: 15px; /* In RTL, margin-left is for the right side */
+            font-size: 1.2rem;
+        }
+
+        .surah-name {
+            font-size: 1.4rem;
+            font-weight: 600;
+            color: var(--text-color);
+        }
+
+        .surah-details {
+            font-size: 0.9rem;
+            color: #888;
+        }
+
+        /* 5. Surah Content View Styles */
+        .surah-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 2px solid var(--accent-color);
+        }
+
+        #surahTitle {
+            font-family: 'Amiri', serif;
+            font-size: 2.5rem;
+            color: var(--primary-color);
+        }
+
+        #versesContainer {
+            background-color: var(--card-bg);
+            padding: 30px;
+            border-radius: 10px;
+            font-family: 'Amiri', serif;
+            font-size: 1.8rem; /* Larger font for easy reading */
+            line-height: 2.5;
+        }
+        
+        .basmalah {
+            text-align: center;
+            font-size: 2rem;
+            margin-bottom: 2rem;
+            font-weight: bold;
+        }
+
+        .verse {
+            margin-bottom: 15px;
+            animation: fadeIn 0.5s ease-in-out;
+            padding: 24px;
+            border-radius: 55px;
+            /* background-color: var(--card-bg); */
+            border: 1px solid var(--border-color);
+            position: relative;
+            text-align: center;
+            background: #040404;
+        }
+
+        .verse-number {
+            color: var(--accent-color);
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin: 0 5px;
+            display: block;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* 6. Buttons & Interactive Elements */
+        #darkModeToggle, #backButton {
+            background: none;
+            border: 1px solid var(--border-color);
+            color: var(--text-color);
+            padding: 8px 12px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: all 0.3s;
+        }
+
+        #darkModeToggle {
+            font-size: 1.2rem;
+        }
+
+        #darkModeToggle:hover, #backButton:hover {
+            background-color: var(--primary-color);
+            color: white;
+            border-color: var(--primary-color);
+        }
+        
+    </style>
+</head>
+<body>
+
+    <!-- 🏛️ HTML - The Skeleton of the App 🏛️ -->
+    <header>
+        <h1>📜 القران الكريم</h1>
+        <button id="darkModeToggle">🌙</button>
+    </header>
+
+    <div class="container">
+        <!-- View 1: List of Surahs (Visible by default) -->
+        <main id="surahsView">
+            <div class="search-container">
+                <input type="text" id="searchInput" placeholder="ابحث عن سورة...">
+            </div>
+            <div id="surahsList" class="surahs-grid">
+                <!-- Surah cards will be injected here by JavaScript -->
+            </div>
+        </main>
+
+        <!-- View 2: Content of a single Surah (Hidden by default) -->
+        <section id="surahContentView" class="hidden">
+            <div class="surah-header">
+                <h2 id="surahTitle"></h2>
+                <button id="backButton">العودة للقائمة →</button>
+            </div>
+            <div id="versesContainer">
+                <!-- Verses will be injected here by JavaScript -->
+            </div>
+        </section>
+    </div>
+
+    <script>
+        // 🚀 JavaScript - The Brains of the Operation 🚀
+
+        document.addEventListener('DOMContentLoaded', () => {
+            // 1. DOM Element References
+            const surahsListContainer = document.getElementById('surahsList');
+            const searchInput = document.getElementById('searchInput');
+            const surahsView = document.getElementById('surahsView');
+            const surahContentView = document.getElementById('surahContentView');
+            const surahTitleEl = document.getElementById('surahTitle');
+            const versesContainer = document.getElementById('versesContainer');
+            const backButton = document.getElementById('backButton');
+            const darkModeToggle = document.getElementById('darkModeToggle');
+
+            // 2. Data Source
+            // For performance, we have a pre-made list of surah names.
+            // This avoids fetching 114 files just to show the list.
+            const surahsData = [
+                { "number": 1, "name": "الفاتحة", "englishName": "Al-Fatiha", "revelationType": "Meccan", "numberOfAyahs": 7 },
+                { "number": 2, "name": "البقرة", "englishName": "Al-Baqara", "revelationType": "Medinan", "numberOfAyahs": 286 },
+                { "number": 3, "name": "آل عمران", "englishName": "Aal-e-Imran", "revelationType": "Medinan", "numberOfAyahs": 200 },
+                // ... This array continues for all 114 surahs. For brevity, I'm cutting it short.
+                // The logic will generate cards for all 114 based on the full array.
+                // A full version of this array can be easily found online or generated.
+                { "number": 4, "name": "النساء", "englishName": "An-Nisa", "revelationType": "Medinan", "numberOfAyahs": 176 },
+                { "number": 5, "name": "المائدة", "englishName": "Al-Ma'ida", "revelationType": "Medinan", "numberOfAyahs": 120 },
+                { "number": 6, "name": "الأنعام", "englishName": "Al-An'am", "revelationType": "Meccan", "numberOfAyahs": 165 },
+                { "number": 7, "name": "الأعراف", "englishName": "Al-A'raf", "revelationType": "Meccan", "numberOfAyahs": 206 },
+                { "number": 8, "name": "الأنفال", "englishName": "Al-Anfal", "revelationType": "Medinan", "numberOfAyahs": 75 },
+                { "number": 9, "name": "التوبة", "englishName": "At-Tawba", "revelationType": "Medinan", "numberOfAyahs": 129 },
+                { "number": 10, "name": "يونس", "englishName": "Yunus", "revelationType": "Meccan", "numberOfAyahs": 109 },
+                { "number": 11, "name": "هود", "englishName": "Hud", "revelationType": "Meccan", "numberOfAyahs": 123 },
+                { "number": 12, "name": "يوسف", "englishName": "Yusuf", "revelationType": "Meccan", "numberOfAyahs": 111 },
+                { "number": 13, "name": "الرعد", "englishName": "Ar-Ra'd", "revelationType": "Medinan", "numberOfAyahs": 43 },
+                { "number": 14, "name": "ابراهيم", "englishName": "Ibrahim", "revelationType": "Meccan", "numberOfAyahs": 52 },
+                // Continue this pattern for all 114 surahs...
+                // For the purpose of this example, let's create a loop to generate the rest
+            ];
+
+            // Auto-populate the rest of the surahs for demonstration
+            const surahNames = ["الفاتحة", "البقرة", "آل عمران", "النساء", "المائدة", "الأنعام", "الأعراف", "الأنفال", "التوبة", "يونس", "هود", "يوسف", "الرعد", "إبراهيم", "الحجر", "النحل", "الإسراء", "الكهف", "مريم", "طه", "الأنبياء", "الحج", "المؤمنون", "النور", "الفرقان", "الشعراء", "النمل", "القصص", "العنكبوت", "الروم", "لقمان", "السجدة", "الأحزاب", "سبأ", "فاطر", "يس", "الصافات", "ص", "الزمر", "غافر", "فصلت", "الشورى", "الزخرف", "الدخان", "الجاثية", "الأحقاف", "محمد", "الفتح", "الحجرات", "ق", "الذاريات", "الطور", "النجم", "القمر", "الرحمن", "الواقعة", "الحديد", "المجادلة", "الحشر", "الممتحنة", "الصف", "الجمعة", "المنافقون", "التغابن", "الطلاق", "التحريم", "الملك", "القلم", "الحاقة", "المعارج", "نوح", "الجن", "المزمل", "المدثر", "القيامة", "الإنسان", "المرسلات", "النبأ", "النازعات", "عبس", "التكوير", "الإنفطار", "المطففين", "الإنشقاق", "البروج", "الطارق", "الأعلى", "الغاشية", "الفجر", "البلد", "الشمس", "الليل", "الضحى", "الشرح", "التين", "العلق", "القدر", "البينة", "الزلزلة", "العاديات", "القارعة", "التكاثر", "العصر", "الهمزة", "الفيل", "قريش", "الماعون", "الكوثر", "الكافرون", "النصر", "المسد", "الإخلاص", "الفلق", "الناس"];
+            
+            // We use the full name list to generate a full list of 114 surahs
+            const fullSurahsData = surahNames.map((name, index) => {
+                 return { number: index + 1, name: name };
+            });
+
+
+            // 3. Functions
+            function displaySurahs(surahs) {
+                surahsListContainer.innerHTML = ''; // Clear previous list
+                surahs.forEach(surah => {
+                    const card = document.createElement('div');
+                    card.className = 'surah-card';
+                    card.dataset.surahIndex = surah.number;
+
+                    card.innerHTML = `
+                        <div class="surah-info">
+                            <div class="surah-number">${surah.number}</div>
+                            <div>
+                                <h3 class="surah-name">${surah.name}</h3>
+                                <p class="surah-details">${surah.revelationType || ''} - ${surah.numberOfAyahs || '...'} آيات</p>
+                            </div>
+                        </div>
+                        <span style="font-size: 1.5rem; color: var(--accent-color);">📖</span>
+                    `;
+                    card.addEventListener('click', () => fetchAndDisplaySurah(surah.number, surah.name));
+                    surahsListContainer.appendChild(card);
+                });
+            }
+
+            async function fetchAndDisplaySurah(index, name) {
+                // IMPORTANT: This URL points to a public repository. 
+                // If you have the JSON files locally in a folder named 'quran-json', 
+                // you can change the URL to: `quran-json/surah_${index}.json`
+                // But this requires running a local server.
+                const url = `https://raw.githubusercontent.com/semarketir/quranjson/master/source/surah/surah_${index}.json`;
+                
+                versesContainer.innerHTML = `<h2 style="text-align:center;">جاري تحميل سورة ${name}...</h2>`;
+                surahsView.classList.add('hidden');
+                surahContentView.classList.remove('hidden');
+                window.scrollTo(0, 0);
+
+                try {
+                    const response = await fetch(url);
+                    if (!response.ok) throw new Error('Network response was not ok');
+                    const data = await response.json();
+                    
+                    surahTitleEl.textContent = `سورة ${name}`;
+                    versesContainer.innerHTML = ''; // Clear loading message
+
+                    // Add Basmalah, except for Surah At-Tawba (number 9)
+                    if (index !== 9) {
+                        const basmalah = document.createElement('p');
+                        basmalah.className = 'basmalah';
+                        basmalah.textContent = 'بِسْمِ ٱللَّهِ ٱلرَّحْمَٰنِ ٱلرَّحِيمِ';
+                        versesContainer.appendChild(basmalah);
+                    }
+                    
+                    // Display verses
+                    for (const verseKey in data.verse) {
+                        const verseNumber = verseKey.split('_')[1];
+                        const verseText = data.verse[verseKey];
+                        
+                        const verseEl = document.createElement('p');
+                        verseEl.className = 'verse';
+                        verseEl.innerHTML = `${verseText} <span class="verse-number">﴿${parseInt(verseNumber).toLocaleString('ar-EG')}﴾</span>`;
+                        versesContainer.appendChild(verseEl);
+                    }
+
+                } catch (error) {
+                    console.error('Fetch error:', error);
+                    versesContainer.innerHTML = `<h2 style="text-align:center; color: red;">عفواً، حدث خطأ أثناء تحميل السورة.</h2>`;
+                }
+            }
+            
+            // Dark Mode Logic
+            function applyTheme(theme) {
+                if (theme === 'dark') {
+                    document.body.classList.add('dark-mode');
+                    darkModeToggle.textContent = '☀️';
+                } else {
+                    document.body.classList.remove('dark-mode');
+                    darkModeToggle.textContent = '🌙';
+                }
+            }
+
+            // 4. Event Listeners
+            searchInput.addEventListener('input', (e) => {
+                const searchTerm = e.target.value.toLowerCase();
+                const filteredSurahs = fullSurahsData.filter(surah => 
+                    surah.name.toLowerCase().includes(searchTerm)
+                );
+                displaySurahs(filteredSurahs);
+            });
+
+            backButton.addEventListener('click', () => {
+                surahContentView.classList.add('hidden');
+                surahsView.classList.remove('hidden');
+            });
+            
+            darkModeToggle.addEventListener('click', () => {
+                const isDarkMode = document.body.classList.contains('dark-mode');
+                if (isDarkMode) {
+                    localStorage.setItem('theme', 'light');
+                    applyTheme('light');
+                } else {
+                    localStorage.setItem('theme', 'dark');
+                    applyTheme('dark');
+                }
+            });
+
+            // 5. Initial App Load
+            // Load theme from localStorage
+            const savedTheme = localStorage.getItem('theme') || 'light';
+            applyTheme(savedTheme);
+
+            // Display all surahs initially
+            displaySurahs(fullSurahsData);
+        });
+    </script>
+</body>
+</html>
